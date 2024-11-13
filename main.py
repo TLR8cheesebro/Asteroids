@@ -16,9 +16,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     On = True
 
-#Refresh screen black 
+#Refresh screen black until quit
     while On == True:
-        screen.fill(255)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+
+        screen.fill(Color(255,255,255))
         pygame.display.flip()
 
 if __name__ == "__main__":
