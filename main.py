@@ -16,6 +16,10 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     Running = True
 
+    in_game_clock = pygame.time.Clock()
+    dt = 0
+    
+
 #Refresh screen black until quit
     while Running:
         for event in pygame.event.get():
@@ -24,6 +28,10 @@ def main():
 
         screen.fill((0, 0, 0))
         pygame.display.flip()
+        
+        #frame rate 60 secs, set delta time
+        dt = (in_game_clock.tick(60)) / 1000
+        
     
     pygame.quit()
 
