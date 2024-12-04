@@ -3,6 +3,7 @@ import pygame
 from constants import *
 from circleshape import *
 from player import *
+from asteroidfield import *
 
 
 player1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
@@ -27,8 +28,15 @@ def main():
     
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
+
 
     player1.containers = (updatable, drawable)
+    asteroids.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable)
+
+    field_o_asteroid = AsteroidField()
+    
     
 
 #Refresh screen black until quit
@@ -37,7 +45,7 @@ def main():
             if event.type == pygame.QUIT:
                 Running = False
 
-        #frame rate 60 secs, set delta time
+        #frame rate 60 secs, set delta timewd
         dt = (in_game_clock.tick(60)) / 1000     
         
         screen.fill((0, 0, 0))
