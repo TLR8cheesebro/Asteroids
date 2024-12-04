@@ -25,6 +25,11 @@ def main():
     in_game_clock = pygame.time.Clock()
     dt = 0
     
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    player1.containers = (updatable, drawable)
+    
 
 #Refresh screen black until quit
     while Running:
@@ -32,15 +37,21 @@ def main():
             if event.type == pygame.QUIT:
                 Running = False
 
+        #frame rate 60 secs, set delta time
+        dt = (in_game_clock.tick(60)) / 1000     
+        
         screen.fill((0, 0, 0))
         
+        #rotate ship
+        for obj in updatable:
+            obj.update(dt)
         #player draw goes here
-        player1.draw(screen)
+        for obj in drawable:
+            obj.draw(screen)
 
         pygame.display.flip()
         
-        #frame rate 60 secs, set delta time
-        dt = (in_game_clock.tick(60)) / 1000        
+           
     
     pygame.quit()
 
