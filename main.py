@@ -6,14 +6,6 @@ from player import *
 from asteroidfield import *
 
 
-player1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
-
-
-class Rect:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-
 def main():
     pygame.init()
     print("Starting asteroids!")
@@ -22,21 +14,20 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     Running = True
-
+    
     in_game_clock = pygame.time.Clock()
     dt = 0
     
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
-
-
-    player1.containers = (updatable, drawable)
-    asteroids.containers = (asteroids, updatable, drawable)
-    AsteroidField.containers = (updatable)
-
-    field_o_asteroid = AsteroidField()
     
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = updatable
+    asteroid_field = AsteroidField()
+
+    Player.containers = (updatable, drawable)
+    player1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
     
 
 #Refresh screen black until quit
@@ -46,14 +37,15 @@ def main():
                 Running = False
 
         #frame rate 60 secs, set delta timewd
-        dt = (in_game_clock.tick(60)) / 1000     
-        
-        screen.fill((0, 0, 0))
-        
+        dt = (in_game_clock.tick(60)) / 1000
+
         #rotate ship
         for obj in updatable:
             obj.update(dt)
-        #player draw goes here
+
+        screen.fill((0, 0, 0))
+
+        #screen goes here
         for obj in drawable:
             obj.draw(screen)
 

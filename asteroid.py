@@ -3,13 +3,14 @@ from circleshape import *
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
-    # random spawn point variables ????
+    # use the position from the parent bro 
     def draw(self, screen):
         pygame.draw.circle(
             screen,
-            (255, 0, 0),
+            (255, 0, 0), self.position,
             2
         )
 
     def update(self, dt):
-        flight_path = self.position + (self.velocity * dt)
+        self.position += (self.velocity * dt)
+        
