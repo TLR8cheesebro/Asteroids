@@ -30,7 +30,7 @@ def main():
     player1 = Player((SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2))
     
 
-#Refresh screen black until quit
+#game loop
     while Running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -49,8 +49,13 @@ def main():
         for obj in drawable:
             obj.draw(screen)
 
+        # is this my update step?
         pygame.display.flip()
-        
+
+        for obj in asteroids:
+            if obj.collision(player1) == True:
+                Running = False
+            
            
     
     pygame.quit()
