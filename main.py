@@ -24,7 +24,9 @@ def main():
     asteroids = pygame.sprite.Group()
     bullet = pygame.sprite.Group()
     
-    
+    Bullet.containers = (bullet, updatable, drawable)
+
+
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
     asteroid_field = AsteroidField()
@@ -39,7 +41,7 @@ def main():
             if event.type == pygame.QUIT:
                 Running = False
 
-        #frame rate 60 secs, set delta timewd
+        #frame rate 60 secs, set delta time
         dt = (in_game_clock.tick(60)) / 1000
 
         #rotate ship
@@ -52,14 +54,14 @@ def main():
         for obj in drawable:
             obj.draw(screen)
 
+
         # is this my update step?
         pygame.display.flip()
 
+
         for obj in asteroids:
             if obj.collision(player1) == True:
-                Running = False
-            
-           
+                Running = False       
     
     pygame.quit()
 

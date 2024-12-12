@@ -1,8 +1,10 @@
+import pygame
 from constants import *
-from circleshape import *
+from circleshape import CircleShape
+from player import *
 
 class Bullet(CircleShape):
-    def __init__(self, x, y, radius):
+    def __init__(self, x, y):
         super().__init__(x, y, SHOT_RADIUS)
 
     def draw(self, screen):
@@ -14,10 +16,4 @@ class Bullet(CircleShape):
         )
 
     def update(self, dt):
-        keys = pygame.key.get_pressed()
-        #shoot
-        if keys[pygame.K_SPACE]:
-            print("pew")
-            self.draw()
-            
-        
+        self.position += (self.velocity * dt)
