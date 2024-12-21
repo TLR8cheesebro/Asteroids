@@ -23,6 +23,7 @@ def main():
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
     bullet = pygame.sprite.Group()
+    bullet.radius = SHOT_RADIUS
     
     Bullet.containers = (bullet, updatable, drawable)
 
@@ -44,6 +45,19 @@ def main():
         #frame rate 60 secs, set delta time
         dt = (in_game_clock.tick(60)) / 1000
 
+        for shot in bullet:
+            for asteroid in asteroids:
+                if asteroid.collision(shot) == True:
+                    shot.kill()
+                    asteroid.kill()
+                    print("BLLAAOOOOWWWW")
+
+        for obj in asteroids:
+            if obj.collision(player1) == True:
+                print("Game Over !!!!!")
+                print("womp womp :'(")
+                Running = False   
+
         #rotate ship
         for obj in updatable:
             obj.update(dt)
@@ -57,11 +71,7 @@ def main():
 
         # is this my update step?
         pygame.display.flip()
-
-
-        for obj in asteroids:
-            if obj.collision(player1) == True:
-                Running = False       
+    
     
     pygame.quit()
 
