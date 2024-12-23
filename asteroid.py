@@ -1,6 +1,6 @@
 from circleshape import *
 from constants import *
-from random import *
+import random
 from player import *
 
 class Asteroid(CircleShape):
@@ -23,14 +23,14 @@ class Asteroid(CircleShape):
         if self.radius <= ASTEROID_MIN_RADIUS:
             return
         else:
-            new_angle = random.uniform(20 , 50)
-            pos_angle = -new_angle * Player.rotate(self.velocity)
-            neg_angle = new_angle * Player.rotate(self.velocity)
+            new_angle = random.uniform(20, 50)
+            velocity1 = self.velocity.rotate(new_angle)
+            velocity2 = self.velocity.rotate(-new_angle)
             new_ast_radius = self.radius - ASTEROID_MIN_RADIUS
-            meteorite1 = Asteroid(self.x , self.y , new_ast_radius)
-            meteorite2 = Asteroid(self.x , self.y , new_ast_radius)
+            meteorite1 = Asteroid(self.position.x, self.position.y, new_ast_radius)
+            meteorite2 = Asteroid(self.position.x, self.position.y,  new_ast_radius)
             
-            meteorite1.velocity = pos_angle * 1.2
-            meteorite2.velocity = neg_angle * 1.2
+            meteorite1.velocity = velocity1 * 1.2
+            meteorite2.velocity = velocity2 * 1.2
 
             
